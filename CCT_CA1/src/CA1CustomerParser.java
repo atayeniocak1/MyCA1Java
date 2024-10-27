@@ -1,6 +1,14 @@
 import java.util.List;
 
 public class CA1CustomerParser {
+
+  // Parses customer data from a list of strings and returns a CA1Customer object
+  // This method takes a list of 4 strings, each containing customer details, and
+  // extracts necessary information
+  // The extracted information includes first name, last name, total purchase,
+  // customer class, and last purchase year
+  // If any data is invalid, it throws an IllegalArgumentException with an
+  // appropriate error message
   public static CA1Customer parseCA1Customer(List<String> customerData) {
     // Validate that the input contains exactly 4 lines of data
     if (customerData.size() != 4) {
