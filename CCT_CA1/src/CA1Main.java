@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,12 +79,26 @@ public class CA1Main {
   // This method takes a list of customers and writes their discounted values to
   // the output file
   public static void writeDiscountedCustomers(String filePath, List<CA1Customer> customers) throws IOException {
-      List<String> lines = new ArrayList<>();
-      for (CA1Customer customer : customers) {
-          // Format the output as "<First Name> <Second Name>\n<Final Value>"
-          lines.add(customer.getFirstName() + " " + customer.getSecondName());
-          lines.add(String.format("%.2f", customer.getFinalValue()));
-          lines.add(""); // Add an empty line after each customer
-      }
-      Files.write(Paths.get(filePath), lines);
+    List<String> lines = new ArrayList<>();
+    for (CA1Customer customer : customers) {
+      // Format the output as "<First Name> <Second Name>\n<Final Value>"
+      lines.add(customer.getFirstName() + " " + customer.getSecondName());
+      lines.add(String.format("%.2f", customer.getFinalValue()));
+      lines.add(""); // Add an empty line after each customer
+    }
+    Files.write(Paths.get(filePath), lines);
   }
+
+  // Validates if a string contains only alphabetic characters
+  // This method is used to validate first names, ensuring only letters are
+  // present
+  private static boolean isAlpha(String str) {
+    return str.matches("[a-zA-Z]+");
+  }
+
+  // Validates if a string contains only alphanumeric characters
+  // This method is used to validate second names, allowing letters and numbers
+  private static boolean isAlphaNumeric(String str) {
+    return str.matches("[a-zA-Z0-9]+");
+  }
+}
