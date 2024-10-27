@@ -1,3 +1,4 @@
+
 public class CA1Customer {
   // This class represents a customer and contains information such as the
   // customer's name, total purchase amount,
