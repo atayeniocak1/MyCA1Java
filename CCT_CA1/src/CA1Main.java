@@ -28,16 +28,51 @@ public class CA1Main {
   // This method reads all lines from the input file, validates the data, and
   // creates customer objects
   public static List<CA1Customer> readAndValidateCustomers(String filePath) throws IOException {
-      List<CA1Customer> customers = new ArrayList<>();
-      List<String> lines = Files.readAllLines(Paths.get(filePath));
-      int lineIndex = 0;
+    List<CA1Customer> customers = new ArrayList<>();
+    List<String> lines = Files.readAllLines(Paths.get(filePath));
+    int lineIndex = 0;
 
-      while (lineIndex < lines.size()) {
-          try {
+    while (lineIndex < lines.size()) {
+      try {
+        // Read the first name and last name from the current set of lines
+        String firstNameLastName = lines.get(lineIndex);
+        // Read and parse the total purchase value from the next line
+        double totalPurchase = Double.parseDouble(lines.get(lineIndex + 1));
+        // Read and parse the customer class from the next line
+        int customerClass = Integer.parseInt(lines.get(lineIndex + 2));
+        // Read and parse the last purchase year from the next line
+        int lastPurchaseYear = Integer.parseInt(lines.get(lineIndex + 3));
 
-          }catch {
-            System.err.println();
-          }
+        // Split the first name and last name
+        String[] names = firstNameLastName.split(" ");
+        // Validate that the name is in the correct format (first name and last name)
+        if (names.length != 2 || !isAlpha(names[0]) || !isAlphaNumeric(names[1])) {
+          throw new IllegalArgumentException("Invalid name format.");
+        }
+
+        // Validate that the customer class is between 1 and 3
+        if (customerClass < 1 || customerClass > 3) {
+          throw new IllegalArgumentException("Customer class must be between 1 and 3.");
+        }
+
+        // Validate that the last purchase year is within a realistic range (1900 to
+        // 2024)
+        if (lastPurchaseYear < 1900 || lastPurchaseYear > 2024) {
+          throw new IllegalArgumentException("Invalid last purchase year.");
+        }
+
+        // Create customer object if validation passes and add it to the list
+        customers.add(new CA1Customer(names[0], names[1], totalPurchase, customerClass, lastPurchaseYear));
+      } catch (Exception e) {
+        // Handle any validation or parsing errors and provide an error message with the
+        // line number
+        System.err.println("Error in customer data at line " + (lineIndex + 1) + ": " + e.getMessage());
+      }
+      // Move to the next set of 4 lines for the next customer
+      lineIndex += 4;
+    }
+    return customers;
+  }
 
   // Writes the customer discount data to output file
   // This method takes a list of customers and writes their discounted values to
