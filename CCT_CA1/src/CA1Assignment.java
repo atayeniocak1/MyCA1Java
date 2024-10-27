@@ -1,5 +1,8 @@
 
+//https://github.com/atayeniocak1/MyCA1Java
+
 public class CA1Assignment {
+
   // fields needed for the asignment:
   // Line 1 – <First Name> <Second Name>
   // Line 2–<

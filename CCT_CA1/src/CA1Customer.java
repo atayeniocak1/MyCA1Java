@@ -1,3 +1,4 @@
+//https://github.com/atayeniocak1/MyCA1Java
 
 public class CA1Customer {
   // This class represents a customer and contains information such as the
